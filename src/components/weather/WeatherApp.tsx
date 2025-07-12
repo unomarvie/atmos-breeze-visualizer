@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { WeatherCard } from './WeatherCard';
 import { WeatherAnimations } from './WeatherAnimations';
+import { ThemeToggle } from './ThemeToggle';
 import { MapPin, Key } from 'lucide-react';
 
 interface WeatherData {
@@ -32,23 +33,32 @@ export const WeatherApp = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(false);
   const [backgroundClass, setBackgroundClass] = useState('bg-gradient-cloudy');
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const { toast } = useToast();
 
   const getWeatherBackground = (weatherMain: string) => {
+    const suffix = isDarkMode ? '' : '-day';
     switch (weatherMain.toLowerCase()) {
       case 'clear':
-        return 'bg-gradient-sunny';
+        return `bg-gradient-sunny${suffix}`;
       case 'clouds':
-        return 'bg-gradient-cloudy';
+        return `bg-gradient-cloudy${suffix}`;
       case 'rain':
       case 'drizzle':
-        return 'bg-gradient-rainy';
+        return `bg-gradient-rainy${suffix}`;
       case 'snow':
-        return 'bg-gradient-snowy';
+        return `bg-gradient-snowy${suffix}`;
       case 'thunderstorm':
-        return 'bg-gradient-stormy';
+        return `bg-gradient-stormy${suffix}`;
       default:
-        return 'bg-gradient-cloudy';
+        return `bg-gradient-cloudy${suffix}`;
+    }
+  };
+
+  const handleThemeChange = (darkMode: boolean) => {
+    setIsDarkMode(darkMode);
+    if (weatherData) {
+      setBackgroundClass(getWeatherBackground(weatherData.weather[0].main));
     }
   };
 
@@ -187,7 +197,10 @@ export const WeatherApp = () => {
       <div className="relative z-10 container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 relative">
+            <div className="absolute top-0 right-0">
+              <ThemeToggle onThemeChange={handleThemeChange} />
+            </div>
             <h1 className="text-5xl font-bold mb-4 text-white drop-shadow-lg">
               Weather Studio
             </h1>

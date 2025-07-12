@@ -86,7 +86,12 @@ export default {
 				'gradient-cloudy': 'var(--gradient-cloudy)',
 				'gradient-rainy': 'var(--gradient-rainy)',
 				'gradient-snowy': 'var(--gradient-snowy)',
-				'gradient-stormy': 'var(--gradient-stormy)'
+				'gradient-stormy': 'var(--gradient-stormy)',
+				'gradient-sunny-day': 'var(--gradient-sunny-day)',
+				'gradient-cloudy-day': 'var(--gradient-cloudy-day)',
+				'gradient-rainy-day': 'var(--gradient-rainy-day)',
+				'gradient-snowy-day': 'var(--gradient-snowy-day)',
+				'gradient-stormy-day': 'var(--gradient-stormy-day)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
