@@ -2,41 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Weather-themed design system with beautiful animations */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base weather colors */
+    --background: 220 20% 14%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 24% 18%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 24% 18%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 200 98% 39%;
+    --primary-foreground: 220 20% 14%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 20% 25%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 20% 20%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 200 98% 39%;
+    --accent-foreground: 220 20% 14%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 20% 25%;
+    --input: 220 20% 25%;
+    --ring: 200 98% 39%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Weather-specific colors */
+    --sunny: 45 98% 55%;
+    --sunny-secondary: 40 95% 65%;
+    --cloudy: 210 15% 70%;
+    --cloudy-dark: 220 20% 50%;
+    --rainy: 200 98% 39%;
+    --rainy-dark: 200 85% 25%;
+    --snowy: 210 40% 95%;
+    --stormy: 260 30% 35%;
+    --stormy-dark: 260 40% 20%;
+
+    /* Weather gradients */
+    --gradient-sunny: linear-gradient(135deg, hsl(var(--sunny)), hsl(var(--sunny-secondary)));
+    --gradient-cloudy: linear-gradient(135deg, hsl(var(--cloudy)), hsl(var(--cloudy-dark)));
+    --gradient-rainy: linear-gradient(135deg, hsl(var(--rainy-dark)), hsl(var(--rainy)));
+    --gradient-snowy: linear-gradient(135deg, hsl(var(--snowy)), hsl(var(--cloudy)));
+    --gradient-stormy: linear-gradient(135deg, hsl(var(--stormy-dark)), hsl(var(--stormy)));
+
+    /* Animation variables */
+    --rain-speed: 1s;
+    --cloud-speed: 20s;
+    --snow-speed: 3s;
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,12 +117,139 @@ All colors MUST be HSL.
   }
 }
 
+/* Weather animation keyframes */
+@keyframes rainDrop {
+  0% {
+    transform: translateY(-100vh) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 100px));
+  }
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes lightning {
+  0%, 90%, 100% {
+    opacity: 0;
+  }
+  5%, 10% {
+    opacity: 1;
+  }
+}
+
+@keyframes sunRays {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-all duration-700;
+  }
+}
+
+@layer components {
+  .rain-drop {
+    position: absolute;
+    background: linear-gradient(180deg, transparent, hsl(var(--rainy)) 50%, transparent);
+    width: 2px;
+    height: 20px;
+    animation: rainDrop var(--rain-speed) linear infinite;
+  }
+  
+  .cloud {
+    position: absolute;
+    background: hsl(var(--cloudy));
+    border-radius: 50px;
+    opacity: 0.8;
+    animation: cloudMove var(--cloud-speed) linear infinite;
+  }
+  
+  .snow-flake {
+    position: absolute;
+    background: hsl(var(--snowy));
+    border-radius: 50%;
+    animation: snowFall var(--snow-speed) linear infinite;
+  }
+  
+  .lightning-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--snowy));
+    opacity: 0;
+    pointer-events: none;
+    animation: lightning 2s infinite;
+  }
+  
+  .sun-rays {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: conic-gradient(from 0deg, transparent 0deg, hsl(var(--sunny)) 2deg, transparent 4deg);
+    border-radius: 50%;
+    animation: sunRays 20s linear infinite;
+    opacity: 0.3;
+  }
+
+  .weather-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 }
