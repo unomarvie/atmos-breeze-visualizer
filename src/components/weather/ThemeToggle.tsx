@@ -27,17 +27,19 @@ export const ThemeToggle = ({ onThemeChange }: ThemeToggleProps) => {
   };
 
   return (
-    <Button
-      onClick={toggleTheme}
-      variant="outline"
-      size="icon"
-      className="bg-white/20 border-white/30 hover:bg-white/30 text-white"
-    >
-      {isDarkMode ? (
-        <Sun className="w-4 h-4" />
-      ) : (
-        <Moon className="w-4 h-4" />
-      )}
-    </Button>
+    <div className="relative z-50">
+      <Button
+        onClick={toggleTheme}
+        variant="outline"
+        size="icon"
+        className="bg-white/20 border-white/30 hover:bg-white/30 text-white backdrop-blur-sm"
+      >
+        {isDarkMode ? (
+          <Sun className="w-4 h-4" />
+        ) : (
+          <Moon className="w-4 h-4" />
+        )}
+      </Button>
+    </div>
   );
 };

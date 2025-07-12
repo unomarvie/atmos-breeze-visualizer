@@ -198,7 +198,7 @@ export const WeatherApp = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 relative">
-            <div className="absolute top-0 right-0">
+            <div className="absolute top-0 right-0 z-50">
               <ThemeToggle onThemeChange={handleThemeChange} />
             </div>
             <h1 className="text-5xl font-bold mb-4 text-white drop-shadow-lg">
