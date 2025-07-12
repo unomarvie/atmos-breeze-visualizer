@@ -218,10 +218,12 @@
 @layer components {
   .rain-drop {
     position: absolute;
-    background: linear-gradient(180deg, transparent, hsl(var(--rainy)) 50%, transparent);
-    width: 2px;
-    height: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1), hsl(var(--rainy)) 40%, rgba(255,255,255,0.8) 60%, transparent);
+    width: 3px;
+    height: 25px;
     animation: rainDrop var(--rain-speed) linear infinite;
+    opacity: 0.8;
+    box-shadow: 0 0 6px rgba(255,255,255,0.3);
   }
   
   .cloud {

@@ -12,7 +12,7 @@ export const WeatherAnimations = ({ weatherType }: WeatherAnimationsProps) => {
   useEffect(() => {
     // Generate rain drops
     if (weatherType.includes('rain') || weatherType.includes('drizzle')) {
-      const drops = Array.from({ length: 100 }, (_, i) => ({
+      const drops = Array.from({ length: 150 }, (_, i) => ({
         id: i,
         left: `${Math.random() * 100}%`,
         delay: `${Math.random() * 2}s`
@@ -63,7 +63,7 @@ export const WeatherAnimations = ({ weatherType }: WeatherAnimationsProps) => {
               style={{
                 left: drop.left,
                 animationDelay: drop.delay,
-                animationDuration: '1s'
+                animationDuration: `${0.8 + Math.random() * 0.4}s`
               }}
             />
           ))}
